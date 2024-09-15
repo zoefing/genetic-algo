@@ -123,4 +123,45 @@ public class Individual {
         }
       }
     }
+
+    /**
+     * Calculates the fitness score of each chromosome
+     * @return The fitness score as an int
+     */
+    public int getFitness() {
+      // initialize fitness
+      int fitness = 0;
+
+      // fitness test for mirror partners
+      for (int gene = 0; gene < chromosome.size(); gene++) {
+        Character currentGene = chromosome.get(gene);
+        Character mirrorGene = chromosome.get((chromosome.size() - 1 - gene));
+        if (currentGene == mirrorGene) {
+          fitness += 1;
+        }
+        else if (currentGene != mirrorGene) {
+          fitness -= 1;
+        }
+      }
+
+      // fitness test for adjacent genes
+      for (int gene = 0; gene < chromosome.size(); gene++) {
+        if (gene != (chromosome.size() - 1)) {
+          Character firstGene = chromosome.get(gene);
+          Character nextGene = chromosome.get((gene + 1));
+          if (firstGene == nextGene) {
+            fitness -= 1;
+          }
+          else if (firstGene != nextGene) {
+            fitness += 0;
+          }
+        }
+        else if (gene == (chromosome.size()) - 1) {
+          ; // skip as no following gene
+        }
+      }
+
+      // remove the return below and write your own
+      return fitness;
+  }
 }
